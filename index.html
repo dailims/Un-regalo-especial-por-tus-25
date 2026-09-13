@@ -1349,8 +1349,6 @@ function playAudio(id){
 
 <!-- ==================== DÍA 13 ==================== -->
 
-<!-- ==================== DÍA 13 ==================== -->
-
 <section id="day13" class="screen">
 
     <div class="music-screen">
@@ -1399,21 +1397,32 @@ function playAudio(id){
                 placeholder="Escribe el nombre de la canción"
             >
 
-            <button class="btn gold" onclick="checkSong()">
+            <button
+                class="btn gold"
+                onclick="checkSong()"
+            >
                 DESBLOQUEAR ✦
             </button>
 
-            <div id="songResult" style="margin-top:25px"></div>
+            <div
+                id="songResult"
+                style="margin-top:25px"
+            ></div>
 
 
-            <!-- DICHAVATE -->
+            <!-- ==================== CANCIÓN ==================== -->
 
             <div
                 id="dichavatePlayer"
                 style="display:none;margin-top:30px"
             >
 
-                <div class="album" id="album13">♫</div>
+                <div
+                    class="album"
+                    id="album13"
+                >
+                    ♫
+                </div>
 
                 <h3>✦ Dichavate ✦</h3>
 
@@ -1455,13 +1464,21 @@ function playAudio(id){
                     Ahora sí... dale play. 🎧
                 </p>
 
-                <audio id="dichavate" controls>
-                    <source src="./Dichavate.mp3" type="audio/mpeg">
+                <audio
+                    id="dichavate"
+                    controls
+                >
+                    <source
+                        src="./Dichavate.mp3"
+                        type="audio/mpeg"
+                    >
+
                     Tu navegador no puede reproducir esta canción.
                 </audio>
 
                 <p class="small">
-                    Si no empieza automáticamente, pulsa ▶.
+                    Si no empieza automáticamente,
+                    pulsa ▶.
                 </p>
 
             </div>
@@ -1469,7 +1486,12 @@ function playAudio(id){
         </div>
 
 
-        <button class="btn back" onclick="goCalendar()">
+        <!-- ==================== VOLVER ==================== -->
+
+        <button
+            class="btn back"
+            onclick="goCalendar()"
+        >
             ✦ VOLVER AL CALENDARIO ✦
         </button>
 
@@ -1478,42 +1500,45 @@ function playAudio(id){
 </section>
 
 
+<!-- ==================== JAVASCRIPT DÍA 13 ==================== -->
+
 <script>
 
-function normalizeText(text){
+function normalizeText(text) {
 
     return text
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase()
         .trim();
 
 }
 
 
-function checkSong(){
+function checkSong() {
 
     const guess = normalizeText(
-        document.getElementById('songGuess').value
+        document.getElementById("songGuess").value
     );
 
     const result =
-        document.getElementById('songResult');
+        document.getElementById("songResult");
 
     const player =
-        document.getElementById('dichavatePlayer');
+        document.getElementById("dichavatePlayer");
 
     const audio =
-        document.getElementById('dichavate');
+        document.getElementById("dichavate");
 
 
-    if(
+    /* ==================== RESPUESTA CORRECTA ==================== */
+
+    if (
         guess === "dichavate" ||
         guess.includes("dichavate")
-    ){
+    ) {
 
         result.innerHTML = `
-
             <div class="card">
 
                 <h3>✦ CORRECTO ✦</h3>
@@ -1532,19 +1557,24 @@ function checkSong(){
                 </p>
 
             </div>
-
         `;
 
+
+        /* MOSTRAR LA CANCIÓN */
 
         player.style.display = "block";
 
 
+        /* VOLVER AL PRINCIPIO DE LA CANCIÓN */
+
         audio.currentTime = 0;
 
 
+        /* INTENTAR REPRODUCIR */
+
         audio.play().catch(() => {
 
-            if(typeof showToast === "function"){
+            if (typeof showToast === "function") {
 
                 showToast(
                     "Pulsa ▶ en el reproductor para escuchar la canción."
@@ -1555,15 +1585,22 @@ function checkSong(){
         });
 
 
+        /* ANIMACIÓN DEL DISCO */
+
         document
-            .getElementById('album13')
-            .classList.add('playing');
+            .getElementById("album13")
+            .classList
+            .add("playing");
 
 
-    }else{
+    }
+
+
+    /* ==================== RESPUESTA INCORRECTA ==================== */
+
+    else {
 
         result.innerHTML = `
-
             <div class="card">
 
                 <p class="pink">
@@ -1578,117 +1615,8 @@ function checkSong(){
                 <button
                     class="btn"
                     onclick="
-                        document.getElementById('songGuess').value='';
-                        document.getElementById('songResult').innerHTML='';
-                    "
-                >
-                    INTENTAR DE NUEVO
-                </button>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-</script>
-
-/* ==================== DÍA 13 ==================== */
-
-function normalizeText(text){
-
-    return text
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .toLowerCase()
-        .trim();
-
-}
-
-
-function checkSong(){
-
-    const guess = normalizeText(
-        document.getElementById('songGuess').value
-    );
-
-    const result = document.getElementById('songResult');
-
-    const player = document.getElementById('dichavatePlayer');
-
-    const audio = document.getElementById('dichavate');
-
-
-    if(
-        guess === "dichavate" ||
-        guess.includes("dichavate")
-    ){
-
-        result.innerHTML = `
-            <div class="card">
-                <h3>✦ CORRECTO ✦</h3>
-
-                <p>
-                    Sabía que la recordarías. ♡
-                </p>
-
-                <p>
-                    Esta canción tiene algo especial para nosotras.
-                </p>
-            </div>
-        `;
-
-
-        /* MOSTRAR DICHAVATE */
-
-        player.style.display = "block";
-
-
-        /* REPRODUCIR */
-
-        audio.currentTime = 0;
-
-        audio.play().catch(() => {
-
-            if(typeof showToast === "function"){
-
-                showToast(
-                    "Pulsa ▶ en el reproductor para escuchar la canción."
-                );
-
-            }
-
-        });
-
-
-        /* ANIMACIÓN */
-
-        document
-            .getElementById('album13')
-            .classList
-            .add('playing');
-
-
-    }else{
-
-        result.innerHTML = `
-            <div class="card">
-
-                <p class="pink">
-                    Mmm... esa no es. ♡
-                </p>
-
-                <p>
-                    Piensa un poquito más en nuestra canción.
-                </p>
-
-                <button
-                    class="btn"
-                    onclick="
-                        document.getElementById('songGuess').value='';
-                        document.getElementById('songResult').innerHTML='';
+                        document.getElementById('songGuess').value = '';
+                        document.getElementById('songResult').innerHTML = '';
                     "
                 >
                     INTENTAR DE NUEVO
