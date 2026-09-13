@@ -1349,6 +1349,8 @@ function playAudio(id){
 
 <!-- ==================== DÍA 13 ==================== -->
 
+<!-- ==================== DÍA 13 ==================== -->
+
 <section id="day13" class="screen">
 
     <div class="music-screen">
@@ -1361,8 +1363,34 @@ function playAudio(id){
 
             <div class="big-symbol">🎵</div>
 
+            <h3>Hay canciones que simplemente se sienten...</h3>
+
             <p>
-                A ver si recuerdas cuál es...
+                Y hay otras que, apenas empiezan a sonar,
+                nos transportan directamente a un momento,
+                a una persona o a un sentimiento. ♡
+            </p>
+
+            <p>
+                Esta es una de esas canciones para mí.
+            </p>
+
+            <p>
+                Tiene algo que me hace pensar en nosotras,
+                en nuestras risas, nuestros momentos
+                y en todas esas pequeñas cosas que hacen
+                que nuestra historia sea tan especial.
+            </p>
+
+            <div class="divider"></div>
+
+            <p>
+                <strong>¿Te acuerdas cuál es?</strong> ✨
+            </p>
+
+            <p class="small">
+                Escribe el nombre de nuestra canción
+                y descubre lo que preparé para ti...
             </p>
 
             <input
@@ -1372,7 +1400,7 @@ function playAudio(id){
             >
 
             <button class="btn gold" onclick="checkSong()">
-                DESBLOQUEAR
+                DESBLOQUEAR ✦
             </button>
 
             <div id="songResult" style="margin-top:25px"></div>
@@ -1387,12 +1415,44 @@ function playAudio(id){
 
                 <div class="album" id="album13">♫</div>
 
-                <h3>Dichavate</h3>
+                <h3>✦ Dichavate ✦</h3>
 
                 <div class="divider"></div>
 
                 <p>
-                    Esta canción tiene algo especial para nosotras. ♡
+                    Sabía que la recordarías. ♡
+                </p>
+
+                <p>
+                    Hay recuerdos que viven en fotografías,
+                    otros viven en canciones...
+                </p>
+
+                <p>
+                    Esta canción guarda un pedacito de nuestra historia,
+                    de esos momentos que se sienten todavía más bonitos
+                    cuando los compartimos juntas. ♡
+                </p>
+
+                <p>
+                    Gracias por formar parte de mi historia,
+                    por todas las risas, por los momentos
+                    inesperados y por cada recuerdo que vamos
+                    construyendo juntas.
+                </p>
+
+                <p>
+                    <strong>
+                        Y si algún día escuchamos esta canción
+                        dentro de muchos años, espero que
+                        todavía nos haga sonreír. ♡
+                    </strong>
+                </p>
+
+                <div class="divider"></div>
+
+                <p class="small">
+                    Ahora sí... dale play. 🎧
                 </p>
 
                 <audio id="dichavate" controls>
@@ -1419,6 +1479,121 @@ function playAudio(id){
 
 
 <script>
+
+function normalizeText(text){
+
+    return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .toLowerCase()
+        .trim();
+
+}
+
+
+function checkSong(){
+
+    const guess = normalizeText(
+        document.getElementById('songGuess').value
+    );
+
+    const result =
+        document.getElementById('songResult');
+
+    const player =
+        document.getElementById('dichavatePlayer');
+
+    const audio =
+        document.getElementById('dichavate');
+
+
+    if(
+        guess === "dichavate" ||
+        guess.includes("dichavate")
+    ){
+
+        result.innerHTML = `
+
+            <div class="card">
+
+                <h3>✦ CORRECTO ✦</h3>
+
+                <p>
+                    Sabía que la recordarías. ♡
+                </p>
+
+                <p>
+                    Hay recuerdos que viven en fotografías,
+                    otros viven en canciones...
+                </p>
+
+                <p>
+                    Y esta es una de las nuestras. 🎵
+                </p>
+
+            </div>
+
+        `;
+
+
+        player.style.display = "block";
+
+
+        audio.currentTime = 0;
+
+
+        audio.play().catch(() => {
+
+            if(typeof showToast === "function"){
+
+                showToast(
+                    "Pulsa ▶ en el reproductor para escuchar la canción."
+                );
+
+            }
+
+        });
+
+
+        document
+            .getElementById('album13')
+            .classList.add('playing');
+
+
+    }else{
+
+        result.innerHTML = `
+
+            <div class="card">
+
+                <p class="pink">
+                    Mmm... esa no es. ♡
+                </p>
+
+                <p>
+                    Estoy segura de que la conoces...
+                    piensa un poquito más. ✨
+                </p>
+
+                <button
+                    class="btn"
+                    onclick="
+                        document.getElementById('songGuess').value='';
+                        document.getElementById('songResult').innerHTML='';
+                    "
+                >
+                    INTENTAR DE NUEVO
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+</script>
 
 /* ==================== DÍA 13 ==================== */
 
